@@ -1,0 +1,19 @@
+# ninja log v5
+347	532	1705126430102339383	CMakeFiles/Battleship.dir/source/Warship/Cruiser.cpp.o	832e49c454de26a3
+1	44	1705127679897221249	build.ninja	da00e04c1f8589ee
+231	451	1705126430020662939	CMakeFiles/Battleship.dir/source/Warship/Carrier.cpp.o	9de14c7fef167cfc
+5	323	1705126816839637087	CMakeFiles/Battleship.dir/source/General/Bot.cpp.o	1209757f74de151
+5	34	1705126332710065399	CMakeFiles/Battleship.dir/source/Sea/Grid.cpp.o	2b9af524148d03f3
+4	419	1705126816935173513	CMakeFiles/Battleship.dir/main.cpp.o	4c44ee3d5d5670dc
+4	212	1705126816727932591	CMakeFiles/Battleship.dir/source/General/General.cpp.o	21137ad92a0c3c65
+353	561	1705126430131909756	CMakeFiles/Battleship.dir/source/Warship/Destroyer.cpp.o	279f1f7d915405d4
+5	523	1705126817038223700	CMakeFiles/Battleship.dir/source/Manager/GameManager.cpp.o	14daad357ce6acb0
+183	390	1705126429960469134	CMakeFiles/Battleship.dir/source/Warship/Battleship.cpp.o	7513692c0f50d93d
+391	575	1705126430146459260	CMakeFiles/Battleship.dir/source/Warship/Submarine.cpp.o	7ef4ef02db7f58df
+4	39	1705126273354276663	CMakeFiles/Battleship.dir/source/Sea/Area.cpp.o	f3618ee308eb3364
+4	370	1705126273685746207	CMakeFiles/Battleship.dir/source/Util/DataLoader.cpp.o	7124807747b6b10b
+5	318	1705126816833825146	CMakeFiles/Battleship.dir/source/General/Player.cpp.o	edf0703b1fcb9b19
+5	231	1705126429800764205	CMakeFiles/Battleship.dir/source/Sea/TerritorialSea.cpp.o	711bdff865f52a3f
+451	610	1705126430181693921	CMakeFiles/Battleship.dir/source/Warship/Warship.cpp.o	dbbfa53444fe6a8e
+4	226	1705128645249179723	CMakeFiles/Battleship.dir/main.cpp.o	4c44ee3d5d5670dc
+4	217	1705128822030035355	CMakeFiles/Battleship.dir/main.cpp.o	4c44ee3d5d5670dc
