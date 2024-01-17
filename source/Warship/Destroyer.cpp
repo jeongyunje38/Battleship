@@ -6,7 +6,7 @@
 
 Destroyer::Destroyer() {
     shape = {
-            new Grid(0, 0),
-            new Grid(1, 0)
+            std::make_shared<Grid>(0, 0),
+            std::make_shared<Grid>(1, 0)
     };
 }

@@ -4,23 +4,9 @@
 
 #include "../../include/Manager/GameManager.hpp"
 
-GameManager::GameManager(const std::string& data_path) {
+GameManager::GameManager(const std::string &data_path) {
     DataLoader data_loader;
     data = data_loader.read_data(data_path);
-}
-
-GameManager::~GameManager() {
-    std::for_each(warships.begin(), warships.end(), [&](std::vector<Warship*> v){
-        std::for_each(v.begin(), v.end(), [&](Warship* warship){
-            delete warship;
-        });
-    });
-    std::for_each(seas.begin(), seas.end(), [&](TerritorialSea* sea){
-        delete sea;
-    });
-    std::for_each(generals.begin(), generals.end(), [&](General* general){
-        delete general;
-    });
 }
 
 void GameManager::init() {
@@ -44,7 +30,7 @@ void GameManager::print_result() {
 }
 
 bool GameManager::is_game_over() {
-    return std::any_of(seas.begin(), seas.end(), [&](TerritorialSea* sea){
+    return std::any_of(seas.begin(), seas.end(), [&](std::shared_ptr<TerritorialSea> sea) {
         return sea->is_all_revealed();
     });
 }
@@ -57,34 +43,38 @@ void GameManager::setup_var() {
     turn = 0;
     warships = {
             {
-                    new Carrier(),
-                    new Battleship(),
-                    new Cruiser(),
-                    new Submarine(),
-                    new Destroyer()
+                    std::make_shared<Carrier>(),
+                    std::make_shared<Battleship>(),
+                    std::make_shared<Cruiser>(),
+                    std::make_shared<Submarine>(),
+                    std::make_shared<Destroyer>()
             },
             {
-                    new Carrier(),
-                    new Battleship(),
-                    new Cruiser(),
-                    new Submarine(),
-                    new Destroyer()
+                    std::make_shared<Carrier>(),
+                    std::make_shared<Battleship>(),
+                    std::make_shared<Cruiser>(),
+                    std::make_shared<Submarine>(),
+                    std::make_shared<Destroyer>()
             }
     };
     seas = {
-            new TerritorialSea(data["SEA_SIZE"]),
-            new TerritorialSea(data["SEA_SIZE"])
+            std::make_shared<TerritorialSea>(data["SEA_SIZE"]),
+            std::make_shared<TerritorialSea>(data["SEA_SIZE"])
     };
     generals = {
-            new Player(),
-            new Bot(),
+            std::make_shared<Player>(),
+            std::make_shared<Bot>()
     };
 }
 
 void GameManager::deploy() {
     int id = 0;
-    std::for_each(generals.begin(), generals.end(), [&](General* general){
+    for (auto general: generals) {
         general->deploy_fleet(seas[id], warships[id]);
         ++id;
-    });
+    };
+}
+
+void GameManager::print() {
+
 }

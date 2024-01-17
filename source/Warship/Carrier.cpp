@@ -6,10 +6,10 @@
 
 Carrier::Carrier() {
     shape = {
-            new Grid(0, 0),
-            new Grid(1, 0),
-            new Grid(2, 0),
-            new Grid(3, 0),
-            new Grid(4, 0)
+            std::make_shared<Grid>(0, 0),
+            std::make_shared<Grid>(1, 0),
+            std::make_shared<Grid>(2, 0),
+            std::make_shared<Grid>(3, 0),
+            std::make_shared<Grid>(4, 0)
     };
 }

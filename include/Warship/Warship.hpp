@@ -7,15 +7,15 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 #include "../Sea/Grid.hpp"
 
 class Warship {
 public:
-    ~Warship();
-    std::vector<Grid*> get_shape();
+    std::vector<std::shared_ptr<Grid>> get_shape();
     void rotate();
 protected:
-    std::vector<Grid*> shape;
+    std::vector<std::shared_ptr<Grid>> shape;
 };
 
 

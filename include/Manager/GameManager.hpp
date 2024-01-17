@@ -10,6 +10,7 @@
 #include <map>
 #include <string>
 #include <random>
+#include <memory>
 #include "../Util/DataLoader.hpp"
 #include "../Warship/Warship.hpp"
 #include "../Warship/Carrier.hpp"
@@ -24,22 +25,31 @@
 
 class GameManager {
 public:
-    explicit GameManager(const std::string& data_path);
-    ~GameManager();
+    explicit GameManager(const std::string &data_path);
+
     void init();
+
     void step();
+
     void run();
+
     void print_result();
+
     bool is_game_over();
+
     void setup_var();
+
     void deploy();
+
+    void print();
+
 private:
     bool is_player_first_attacker;
     int turn;
     std::map<std::string, int> data;
-    std::vector<std::vector<Warship*> > warships;
-    std::vector<TerritorialSea*> seas;
-    std::vector<General*> generals;
+    std::vector<std::vector<std::shared_ptr<Warship>>> warships;
+    std::vector<std::shared_ptr<TerritorialSea>> seas;
+    std::vector<std::shared_ptr<General>> generals;
 };
 
 

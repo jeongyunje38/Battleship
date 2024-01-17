@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 #include "Grid.hpp"
 #include "Area.hpp"
 #include "../Warship/Warship.hpp"
@@ -14,16 +15,15 @@
 class TerritorialSea {
 public:
     explicit TerritorialSea(int _size);
-    ~TerritorialSea();
-    std::vector<Area*> get_territory();
-    void occupy(Grid* grid);
-    bool is_occupied(Grid* grid);
+    std::vector<std::shared_ptr<Area>> get_territory();
+    void occupy(const std::shared_ptr<Grid>& grid);
+    bool is_occupied(const std::shared_ptr<Grid>& grid);
     bool is_all_revealed();
-    void put(Warship* warship, Grid* grid);
-    bool is_putable(Warship* warship, Grid* grid);
+    void put(std::shared_ptr<Warship> warship, std::shared_ptr<Grid> grid);
+    bool is_putable(const std::shared_ptr<Warship>& warship, std::shared_ptr<Grid> grid);
 private:
     int size;
-    std::vector<Area*> territory;
+    std::vector<std::shared_ptr<Area>> territory;
     [[nodiscard]] int map_integer(int y, int x) const;
 };
 

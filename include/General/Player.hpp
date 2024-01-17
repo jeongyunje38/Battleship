@@ -10,7 +10,7 @@
 
 class Player : public General {
 public:
-    void deploy_fleet(TerritorialSea* sea, std::vector<Warship*> warships) override;
+    void deploy_fleet(std::shared_ptr<TerritorialSea> sea, std::vector<std::shared_ptr<Warship>> warships) override;
 };
 
 

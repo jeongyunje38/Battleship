@@ -6,27 +6,21 @@
 
 TerritorialSea::TerritorialSea(int _size) {
     size = _size;
-    territory = std::vector<Area*>(size * size);
+    territory = std::vector<std::shared_ptr<Area>>(size * size);
     for (int y = 0; y < size; y++)
         for (int x = 0; x < size; x++)
-            territory[map_integer(y, x)] = new Area(Grid(y, x), false, false);
+            territory[map_integer(y, x)] = std::make_shared<Area>(Grid(y, x), false, false);
 }
 
-TerritorialSea::~TerritorialSea() {
-    std::for_each(territory.begin(), territory.end(), [&](Area* area){
-        delete area;
-    });
-}
-
-std::vector<Area*> TerritorialSea::get_territory() {
+std::vector<std::shared_ptr<Area>> TerritorialSea::get_territory() {
     return territory;
 }
 
-void TerritorialSea::occupy(Grid* grid) {
+void TerritorialSea::occupy(const std::shared_ptr<Grid>& grid) {
     territory[map_integer(grid->Y(), grid->X())]->set_has_warship(true);
 }
 
-bool TerritorialSea::is_occupied(Grid* grid) {
+bool TerritorialSea::is_occupied(const std::shared_ptr<Grid>& grid) {
     return territory[map_integer(grid->Y(), grid->X())]->get_has_warship();
 }
 
@@ -35,29 +29,28 @@ int TerritorialSea::map_integer(int y, int x) const {
 }
 
 bool TerritorialSea::is_all_revealed() {
-    return std::all_of(territory.begin(), territory.end(), [&](Area* area){
-        Grid *grid = new Grid(area->get_position());
-        bool ret = is_occupied(grid) & area->get_is_revealed();
-        delete grid;
-        return ret;
+    return std::all_of(territory.begin(), territory.end(), [&](const std::shared_ptr<Area>& area) {
+        std::shared_ptr<Grid> grid = std::make_shared<Grid>(area->get_position());
+        return is_occupied(grid) & area->get_is_revealed();
     });
 }
 
-void TerritorialSea::put(Warship *warship, Grid *grid) {
-    std::for_each(warship->get_shape().begin(), warship->get_shape().end(), [&](Grid* d_grid){
-        Grid* target = new Grid(grid->Y() + d_grid->Y(), grid->X() + d_grid->X());
-        occupy(target);
-        delete target;
-    });
-}
-
-bool TerritorialSea::is_putable(Warship *warship, Grid *grid) {
-    return std::all_of(warship->get_shape().begin(), warship->get_shape().end(), [&](Grid* d_grid){
+void TerritorialSea::put(std::shared_ptr<Warship> warship, std::shared_ptr<Grid> grid) {
+    auto shape = warship->get_shape();
+    for (auto d_grid: shape) {
         int Y = grid->Y() + d_grid->Y();
         int X = grid->X() + d_grid->X();
-        Grid* target = new Grid(Y, X);
-        bool ret = 0 <= Y & Y < size & 0 <= X & X < size & !is_occupied(target);
-        delete target;
-        return ret;
+        std::shared_ptr<Grid> target = std::make_shared<Grid>(Y, X);
+        occupy(target);
+    }
+}
+
+bool TerritorialSea::is_putable(const std::shared_ptr<Warship>& warship, std::shared_ptr<Grid> grid) {
+    auto shape = warship->get_shape();
+    return std::all_of(shape.begin(), shape.end(), [&](std::shared_ptr<Grid> d_grid){
+        int Y = grid->Y() + d_grid->Y();
+        int X = grid->X() + d_grid->X();
+        std::shared_ptr<Grid> target = std::make_shared<Grid>(Y, X);
+        return (0 <= Y & Y < size & 0 <= X & X < size & !is_occupied(target));
     });
 }

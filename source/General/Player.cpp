@@ -4,14 +4,13 @@
 
 #include "../../include/General/Player.hpp"
 
-void Player::deploy_fleet(TerritorialSea* sea, std::vector<Warship*> warships) {
+void Player::deploy_fleet(std::shared_ptr<TerritorialSea> sea, std::vector<std::shared_ptr<Warship>> warships) {
     int y, x;
     char direction;
-    std::for_each(warships.begin(), warships.end(), [&](Warship* warship){
+    for (const auto& warship: warships) {
         std::cin >> y >> x >> direction;
-        Grid* grid = new Grid(y, x);
+        std::shared_ptr<Grid> grid = std::make_shared<Grid>(y, x);
         // TODO: 방향 돌리기
         sea->put(warship, grid);
-        delete grid;
-    });
+    }
 }

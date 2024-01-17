@@ -6,12 +6,13 @@
 #define BATTLESHIP_GENERAL_HPP
 
 #include <vector>
+#include <memory>
 #include "../Sea/TerritorialSea.hpp"
 #include "../Warship/Warship.hpp"
 
 class General {
 public:
-    virtual void deploy_fleet(TerritorialSea *sea, std::vector<Warship *> warships);
+    virtual void deploy_fleet(std::shared_ptr<TerritorialSea> sea, std::vector<std::shared_ptr<Warship>> warships) = 0;
 };
 
 
