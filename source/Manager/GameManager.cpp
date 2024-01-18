@@ -12,6 +12,7 @@ GameManager::GameManager(const std::string &data_path) {
 void GameManager::init() {
     setup_var();
     deploy();
+    print();
 }
 
 void GameManager::step() {
@@ -20,9 +21,9 @@ void GameManager::step() {
 
 void GameManager::run() {
     init();
-    while (!is_game_over())
-        step();
-    print_result();
+//    while (!is_game_over())
+//        step();
+//    print_result();
 }
 
 void GameManager::print_result() {
@@ -68,13 +69,17 @@ void GameManager::setup_var() {
 }
 
 void GameManager::deploy() {
-    int id = 0;
-    for (auto general: generals) {
-        general->deploy_fleet(seas[id], warships[id]);
-        ++id;
-    };
+    generals[PLAYER]->deploy_fleet(seas[PLAYER], warships[PLAYER]);
+    generals[BOT]->deploy_fleet(seas[BOT], warships[BOT]);
 }
 
 void GameManager::print() {
-
+    for (int y = 0; y < data["SEA_SIZE"]; y++) {
+        for (int x = 0; x < data["SEA_SIZE"]; x++)
+            std::cout << seas[PLAYER]->is_occupied(std::make_shared<Grid>(y, x));
+        std::cout << "\t\t";
+        for (int x = 0; x < data["SEA_SIZE"]; x++)
+            std::cout << seas[BOT]->is_occupied(std::make_shared<Grid>(y, x));
+        std::cout << "\n";
+    }
 }

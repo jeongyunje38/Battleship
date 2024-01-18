@@ -44,6 +44,9 @@ public:
     void print();
 
 private:
+    enum who {
+        PLAYER, BOT
+    };
     bool is_player_first_attacker;
     int turn;
     std::map<std::string, int> data;

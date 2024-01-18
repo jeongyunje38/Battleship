@@ -28,7 +28,7 @@ void Bot::deploy_fleet(std::shared_ptr<TerritorialSea> sea, std::vector<std::sha
         do {
             y = rand_for_y(gen), x = rand_for_x(gen);
             grid = std::make_shared<Grid>(y, x);
-        } while (sea->is_putable(warship, grid));
+        } while (!sea->is_putable(warship, grid));
         sea->put(warship, grid);
     };
 }
